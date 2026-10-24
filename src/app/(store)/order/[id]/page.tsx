@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getOrder } from "@/lib/orders";
 import { money } from "@/lib/products";
+import PurchaseEvent from "@/components/PurchaseEvent";
 
 export const metadata: Metadata = { title: "Order confirmed", robots: { index: false } };
 
@@ -23,6 +24,7 @@ async function OrderContent({ params }: { params: PageProps<"/order/[id]">["para
 
   return (
     <div className="page prose-page">
+      <PurchaseEvent id={order.id} value={t.total} tax={t.tax} shipping={t.shipping} items={t.lines.map((l) => ({ slug: l.slug, name: l.name, variant: l.variant, unit: l.unit, qty: l.qty }))} />
       <header className="page-head">
         <p className="eyebrow">Order {order.id}</p>
         <h1 className="serif">Thank you, <em>{order.name.split(" ")[0]}.</em></h1>

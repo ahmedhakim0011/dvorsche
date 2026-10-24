@@ -2,11 +2,14 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { products as seed, CATEGORIES } from "@/lib/products";
+import { products as seed, categoryBySlug, collectionPath } from "@/lib/products";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, productLd } from "@/lib/seo";
 import { getCatalog, getProductBySlug } from "@/lib/catalog";
 import ProductArt from "@/components/ProductArt";
 import ProductCard from "@/components/ProductCard";
 import AddToBag from "@/components/AddToBag";
+import ViewItem from "@/components/ViewItem";
 
 export async function generateStaticParams() {
   try {
@@ -19,9 +22,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/product/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const p = await getProductBySlug(slug);
-  return p ? { title: p.name, description: p.tagline } : {};
+  if (!p) return {};
+  const description = `${p.tagline} ${p.description}`.replace(/\s+/g, " ").trim().slice(0, 300);
+  const path = `/product/${p.slug}`;
+  return { title: p.name, description, alternates: { canonical: path }, openGraph: { title: `${p.name} · D’Vorsche`, description, url: path } };
 }
 
+// Unknown slugs stream a 404 page with a noindex tag (Next.js adds it); see docs/seo for the status-code note.
 export default function ProductPage({ params }: PageProps<"/product/[slug]">) {
   return (
     <Suspense fallback={<div className="page" aria-busy="true"><p className="eyebrow">Loading…</p></div>}>
@@ -36,22 +43,31 @@ async function ProductContent({ params }: { params: PageProps<"/product/[slug]">
   if (!p) notFound();
   const related = products.filter((x) => x.slug !== p.slug && x.category === p.category).concat(products.filter((x) => x.category !== p.category)).slice(0, 4);
 
+  const cat = categoryBySlug(p.category);
+  const path = `/product/${p.slug}`;
   return (
     <div className="page">
+      <JsonLd
+        data={[
+          productLd(p, path),
+          breadcrumbLd([{ name: "Home", path: "/" }, ...(cat ? [{ name: cat.label, path: collectionPath(cat) }] : []), { name: p.name, path }]),
+        ]}
+      />
+      <ViewItem slug={p.slug} name={p.name} price={p.price} />
       <nav className="crumbs" aria-label="Breadcrumb">
-        <Link href="/shop">Shop</Link> / <Link href={`/shop?category=${p.category}`}>{CATEGORIES.find((c) => c.slug === p.category)?.label ?? p.category}</Link> / <span>{p.name}</span>
+        <Link href="/">Home</Link> / {cat ? <><Link href={collectionPath(cat)}>{cat.label}</Link> / </> : null}<span aria-current="page">{p.name}</span>
       </nav>
 
       <div className="pdp">
         <div className="pdp-media deco">
           <div className="frame-art">
-            <ProductArt art={p.art} label={p.name} />
+            <ProductArt art={p.art} label={`${p.name} by D’Vorsche`} />
             {p.badge && <span className="badge">{p.badge}</span>}
           </div>
         </div>
 
         <div className="pdp-info">
-          <p className="eyebrow">{CATEGORIES.find((c) => c.slug === p.category)?.label ?? p.category}</p>
+          <p className="eyebrow">{cat?.label ?? p.category}</p>
           <h1 className="serif">{p.name}</h1>
           <p className="pdp-tag serif">{p.tagline}</p>
           <p className="pdp-desc">{p.description}</p>

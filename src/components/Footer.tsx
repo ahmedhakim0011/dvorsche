@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Brand";
+import ConsentLink from "./ConsentLink";
 
 export default function Footer({ nav }: { nav: { href: string; label: string }[] }) {
   return (
@@ -37,6 +38,7 @@ export default function Footer({ nav }: { nav: { href: string; label: string }[]
       <div className="footer-base">
         <span>© D’Vorsche. All rights reserved.</span>
         <span>Demo storefront — no payments are processed.</span>
+        {process.env.NEXT_PUBLIC_GA_ID ? <ConsentLink /> : null}
       </div>
     </footer>
   );

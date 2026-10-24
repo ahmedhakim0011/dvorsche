@@ -1,11 +1,20 @@
 import Link from "next/link";
-import { CATEGORIES } from "@/lib/products";
+import { CATEGORIES, collectionPath } from "@/lib/products";
 import { getCatalog } from "@/lib/catalog";
 import ProductCard from "@/components/ProductCard";
 import ProductArt from "@/components/ProductArt";
 import Newsletter from "@/components/Newsletter";
 import { Logo, WovenMark } from "@/components/Brand";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/pricing";
+import JsonLd from "@/components/JsonLd";
+import { organizationLd, websiteLd } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: { absolute: "D’Vorsche — Luxury Leather Wallets & Card Holders" },
+  description: "Understated leather wallets and card holders from D’Vorsche, marked by the Woven DV monogram. Complimentary shipping over $250.",
+  alternates: { canonical: "/" },
+};
 
 export default async function Home() {
   const products = await getCatalog();
@@ -22,19 +31,20 @@ export default async function Home() {
 
   return (
     <>
+      <JsonLd data={[organizationLd(), websiteLd()]} />
       <section className="hero on-dark" aria-label="Introduction">
         <WovenMark className="hero-mark" />
         <div className="hero-in">
           <div className="hero-copy">
-            <p className="eyebrow">The Wallet Collection</p>
+            <p className="eyebrow">Luxury leather wallets</p>
             <h1 className="serif">
               Made to be carried,
               <br />
               <em>never announced.</em>
             </h1>
-            <p className="lede">Leather wallets with quiet proportions and a single signature: the Woven DV monogram.</p>
+            <p className="lede">Leather wallets and card holders with quiet proportions and a single signature: the Woven DV monogram.</p>
             <div className="hero-cta">
-              <Link href="/shop" className="btn btn-light">Shop wallets</Link>
+              <Link href="/collections/wallets" className="btn btn-light">Shop wallets</Link>
               <Link href={`/product/${hero.slug}`} className="btn btn-ghost">Discover {hero.name}</Link>
             </div>
           </div>
@@ -69,7 +79,7 @@ export default async function Home() {
             {cats.map((c) => {
               const first = products.find((p) => p.category === c.slug) ?? hero;
               return (
-                <Link key={c.slug} href={`/shop?category=${c.slug}`} className="cat">
+                <Link key={c.slug} href={collectionPath(c)} className="cat">
                   <ProductArt art={first.art} label={c.label} />
                   <div className="cat-label">
                     <h3 className="serif">{c.label}</h3>

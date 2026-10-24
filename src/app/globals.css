@@ -380,3 +380,14 @@ details ul, details p { margin-top: 14px; color: var(--ink); display: grid; gap:
 .mono-plate { --deco-fill: var(--oxblood); --k: 10px; aspect-ratio: 1; display: grid; place-items: center; padding: 22%; }
 .mono-plate img { width: 100%; height: auto; }
 @media (max-width: 560px) { .mono-row { grid-template-columns: 1fr; } .mono-plate { width: 160px; } }
+
+/* Consent banner (only rendered when analytics is configured) */
+.footer .link-btn { color: var(--on-dark-muted); }
+.footer .link-btn:hover { color: var(--ivory); }
+.consent { position: fixed; z-index: 90; left: var(--pad); right: var(--pad); bottom: 16px; max-width: 760px; margin-inline: auto; background: var(--oxblood); color: var(--ivory); border: 1px solid var(--gold); padding: 16px 20px; display: flex; gap: 16px 24px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
+.consent p { flex: 1 1 280px; }
+.consent-actions { display: flex; gap: 10px; }
+.consent .btn { min-height: 44px; padding: 10px 22px; }
+.consent .btn-dark { background: var(--ivory); color: var(--oxblood); border-color: var(--ivory); }
+.consent .btn-ghost { color: var(--ivory); border-color: var(--gold); }
+.consent .btn-ghost:hover { background: var(--ivory); color: var(--oxblood); }

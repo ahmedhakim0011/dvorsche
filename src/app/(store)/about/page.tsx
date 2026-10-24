@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/Brand";
 
-export const metadata: Metadata = { title: "The House" };
+export const metadata: Metadata = {
+  title: "The House",
+  description: "The thinking behind D’Vorsche and the Woven DV monogram: leather wallets designed with restraint.",
+  alternates: { canonical: "/about" },
+};
 
 export default function About() {
   return (

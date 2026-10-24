@@ -26,17 +26,58 @@ export interface Product {
   art: { type: ArtType; bg: [string, string]; c1: string; c2: string };
 }
 
-export const CATEGORIES: { slug: Category; label: string; blurb: string }[] = [
-  { slug: "leather", label: "Wallets", blurb: "Understated wallets and card holders, marked by the Woven DV monogram." },
-  { slug: "fragrance", label: "Fragrance", blurb: "Fragrance from D’Vorsche." },
-  { slug: "home", label: "Accessories", blurb: "Considered accessories." },
+export interface CategoryInfo {
+  slug: Category;
+  /** Public URL handle: /collections/{handle}. Kept separate from the database slug so URLs can be descriptive. */
+  handle: string;
+  label: string;
+  blurb: string;
+  /** SEO: <title> (the site name is appended by the title template) and meta description. Claims here must stay verifiable. */
+  metaTitle: string;
+  metaDescription: string;
+  /** Short unique introduction shown at the top of the collection page. */
+  intro: string;
+}
+
+export const CATEGORIES: CategoryInfo[] = [
+  {
+    slug: "leather",
+    handle: "wallets",
+    label: "Wallets",
+    blurb: "Understated wallets and card holders, marked by the Woven DV monogram.",
+    metaTitle: "Luxury Leather Wallets & Card Holders",
+    metaDescription: "Shop D’Vorsche leather wallets and card holders: understated design marked by the Woven DV monogram. Complimentary shipping over $250.",
+    intro: "Leather wallets and card holders with quiet proportions and a single signature, the Woven DV monogram. Choose by size and colour; each piece page lists its details.",
+  },
+  {
+    slug: "fragrance",
+    handle: "fragrance",
+    label: "Fragrance",
+    blurb: "Fragrance from D’Vorsche.",
+    metaTitle: "Fragrance",
+    metaDescription: "Fragrance from D’Vorsche.",
+    intro: "Fragrance from D’Vorsche.",
+  },
+  {
+    slug: "home",
+    handle: "accessories",
+    label: "Accessories",
+    blurb: "Considered accessories.",
+    metaTitle: "Accessories",
+    metaDescription: "Considered accessories from D’Vorsche.",
+    intro: "Considered accessories from D’Vorsche.",
+  },
 ];
+
+export const categoryByHandle = (h: string) => CATEGORIES.find((c) => c.handle === h);
+export const categoryBySlug = (s: string) => CATEGORIES.find((c) => c.slug === s);
+export const collectionPath = (c: CategoryInfo) => `/collections/${c.handle}`;
 
 /** Primary navigation. Only categories that currently hold products are listed, so future lines appear automatically. */
 export function navFor(catalog: Product[]) {
   return [
     { href: "/shop", label: "Shop all" },
-    ...CATEGORIES.filter((c) => catalog.some((p) => p.category === c.slug)).map((c) => ({ href: `/shop?category=${c.slug}`, label: c.label })),
+    ...CATEGORIES.filter((c) => catalog.some((p) => p.category === c.slug)).map((c) => ({ href: collectionPath(c), label: c.label })),
     { href: "/about", label: "The House" },
   ];
 }

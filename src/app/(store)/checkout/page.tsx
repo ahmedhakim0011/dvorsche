@@ -8,6 +8,7 @@ import { money } from "@/lib/products";
 import type { Totals, ShippingMethod } from "@/lib/pricing";
 import ProductArt from "@/components/ProductArt";
 import { WovenMark } from "@/components/Brand";
+import { track, toItem } from "@/lib/analytics";
 
 type Errors = Record<string, string>;
 
@@ -37,6 +38,12 @@ export default function Checkout() {
       .catch(() => {});
     return () => ctl.abort();
   }, [lines, shipping, promo, ready]);
+
+  useEffect(() => {
+    if (!ready || lines.length === 0 || !totals) return;
+    track("begin_checkout", { currency: "USD", value: totals.subtotal, items: totals.lines.map((l) => toItem(l.slug, l.name, l.unit, l.variant, l.qty)) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, lines.length, !!totals]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();

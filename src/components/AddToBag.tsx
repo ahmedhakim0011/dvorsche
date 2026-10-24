@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { money, type Product } from "@/lib/products";
+import { track, toItem } from "@/lib/analytics";
 
 export default function AddToBag({ product }: { product: Product }) {
   const { add } = useCart();
@@ -43,7 +44,10 @@ export default function AddToBag({ product }: { product: Product }) {
           <span aria-live="polite">{q}</span>
           <button aria-label="Increase quantity" disabled={soldOut} onClick={() => setQty(Math.min(max, q + 1))}>+</button>
         </div>
-        <button className="btn btn-dark btn-grow" disabled={soldOut} onClick={() => add(product.slug, variant, q)}>
+        <button className="btn btn-dark btn-grow" disabled={soldOut} onClick={() => {
+            add(product.slug, variant, q);
+            track("add_to_cart", { currency: "USD", value: price * q, items: [toItem(product.slug, product.name, price, variant, q)] });
+          }}>
           {soldOut ? "Sold out" : `Add to bag — ${money(price * q)}`}
         </button>
       </div>
