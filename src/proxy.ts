@@ -9,6 +9,14 @@ import { CATEGORIES } from "@/lib/products";
 const LEGACY_CATEGORY: Record<string, string> = { leather: "/collections/wallets", fragrance: "/collections/fragrance", home: "/collections/accessories" };
 
 export async function proxy(request: NextRequest) {
+  // admin.<domain> is the back-office host: its root and any storefront path go to the admin, and crawlers are kept out entirely.
+  const host = (request.headers.get("host") ?? "").toLowerCase();
+  if (host.startsWith("admin.")) {
+    const { pathname } = request.nextUrl;
+    if (pathname === "/robots.txt") return new NextResponse("User-agent: *\nDisallow: /\n", { headers: { "Content-Type": "text/plain" } });
+    if (!pathname.startsWith("/admin") && !pathname.startsWith("/api/")) return NextResponse.redirect(new URL("/admin", request.url));
+  }
+
   // Unknown collection handles get a real 404 status. (Product slugs need the catalog; those stream a 404 page with noindex.)
   const m = request.nextUrl.pathname.match(/^\/collections\/([^/]+)$/);
   if (m) return CATEGORIES.some((c) => c.handle === m[1]) ? NextResponse.next() : NextResponse.rewrite(new URL("/_not-found-404", request.url), { status: 404 });
@@ -23,6 +31,9 @@ export async function proxy(request: NextRequest) {
     }
     return NextResponse.next();
   }
+
+  // Everything below is the admin session check; storefront requests must not pay for it.
+  if (!request.nextUrl.pathname.startsWith("/admin")) return NextResponse.next();
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -52,4 +63,4 @@ export async function proxy(request: NextRequest) {
   return response;
 }
 
-export const config = { matcher: ["/admin/:path*", "/shop", "/collections/:handle"] };
+export const config = { matcher: ["/((?!_next/|brand/|og/|favicon|icon\\.svg|apple-icon).*)"] };
