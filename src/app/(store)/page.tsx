@@ -7,12 +7,13 @@ import Newsletter from "@/components/Newsletter";
 import { Logo, WovenMark } from "@/components/Brand";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/pricing";
 import JsonLd from "@/components/JsonLd";
-import { organizationLd, websiteLd } from "@/lib/seo";
+import { navigationLd, organizationLd, websiteLd } from "@/lib/seo";
+import { PILLARS, STANDARD, TAGLINE } from "@/lib/brand-story";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: { absolute: "D’Vorsche — Luxury Leather Wallets & Card Holders" },
-  description: "Understated leather wallets and card holders from D’Vorsche, marked by the Woven DV monogram. Complimentary shipping over $250.",
+  title: { absolute: "D’Vorsche — The Luxury Wallets" },
+  description: "Quiet authority. Lasting character. Nothing unnecessary. Luxury wallets from D’Vorsche, marked by the Woven DV monogram. Complimentary shipping over $250.",
   alternates: { canonical: "/" },
 };
 
@@ -31,18 +32,18 @@ export default async function Home() {
 
   return (
     <>
-      <JsonLd data={[organizationLd(), websiteLd()]} />
+      <JsonLd data={[organizationLd(), websiteLd(), navigationLd()]} />
       <section className="hero on-dark" aria-label="Introduction">
         <WovenMark className="hero-mark" />
         <div className="hero-in">
           <div className="hero-copy">
             <p className="eyebrow">Luxury leather wallets</p>
             <h1 className="serif">
-              Made to be carried,
+              Not made to follow.
               <br />
-              <em>never announced.</em>
+              <em>Made to endure.</em>
             </h1>
-            <p className="lede">Leather wallets and card holders with quiet proportions and a single signature: the Woven DV monogram.</p>
+            <p className="lede">Quiet authority. Lasting character. Nothing unnecessary. Leather wallets marked by a single signature: the Woven DV monogram.</p>
             <div className="hero-cta">
               <Link href="/collections/wallets" className="btn btn-light">Shop wallets</Link>
               <Link href={`/product/${hero.slug}`} className="btn btn-ghost">Discover {hero.name}</Link>
@@ -68,6 +69,14 @@ export default async function Home() {
           <li>Gift-wrapped as standard</li>
         </ul>
       </div>
+
+      <section className="manifesto reveal" aria-label="Philosophy">
+        <p className="eyebrow">The Philosophy</p>
+        <p className="manifesto-text serif">
+          True distinction doesn’t need to announce itself. It is the difference between owning something expensive and owning something <em>exceptional.</em>
+        </p>
+        <Link href="/story" className="link-u">Read our story</Link>
+      </section>
 
       {cats.length > 1 && (
         <section className="section">
@@ -108,6 +117,16 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="chapter reveal" aria-labelledby="chapter-title">
+        <p className="eyebrow">Our First Chapter</p>
+        <h2 className="serif" id="chapter-title">The wallet.</h2>
+        <p className="chapter-copy">
+          Small enough to carry everywhere, personal enough to use every day, and practical enough that every design decision matters. Not another accessory
+          designed only to look impressive in a photograph. An essential designed to earn its place in your everyday life.
+        </p>
+        <Link href="/about#first-chapter" className="link-u">Read the chapter</Link>
+      </section>
+
       <section className="story on-dark" aria-labelledby="story-title">
         <div className="story-in">
           <div className="story-plaque deco">
@@ -125,11 +144,22 @@ export default async function Home() {
             <Link href="/about" className="btn btn-ghost">Our philosophy</Link>
           </div>
         </div>
-        <div className="values">
-          <div className="value"><h3 className="serif">Proportion</h3><p>Balanced margins and clean lines, so that nothing is louder than it needs to be.</p></div>
-          <div className="value"><h3 className="serif">Material</h3><p>Leather chosen to age with its owner, in a palette of oxblood, black and brown.</p></div>
-          <div className="value"><h3 className="serif">Detail</h3><p>A single mark, placed with care. Considered details over decoration.</p></div>
+        <div className="values four">
+          {PILLARS.map((p) => (
+            <div key={p.title} className="value reveal"><h3 className="serif">{p.title}</h3><p>{p.body}</p></div>
+          ))}
         </div>
+      </section>
+
+      <section className="standard on-dark reveal" aria-labelledby="standard-title">
+        <p className="eyebrow">The D’Vorsche Standard</p>
+        <h2 className="serif" id="standard-title">Every product must answer three questions.</h2>
+        <ol className="standard-list">
+          {STANDARD.map((q, i) => (
+            <li key={q}><span className="numeral serif">{["I", "II", "III"][i]}</span><span className="serif">{q}</span></li>
+          ))}
+        </ol>
+        <p className="tagline serif">{TAGLINE}</p>
       </section>
 
       <Newsletter />

@@ -38,7 +38,7 @@ export default async function ShopListing({ searchParams, category }: { searchPa
     <div className="page">
       <header className="page-head center">
         <p className="eyebrow">{category ? "Collection" : "The full collection"}</p>
-        <h1 className="serif">{category ? (category.slug === "leather" ? "Leather wallets & card holders" : category.label) : "All pieces"}</h1>
+        <h1 className="serif">{category ? (category.slug === "leather" ? "The luxury wallets" : category.label) : "All pieces"}</h1>
         <p className="muted">{category?.intro ?? "Every piece in the D’Vorsche collection."}</p>
       </header>
 

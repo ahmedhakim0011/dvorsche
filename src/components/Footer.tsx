@@ -8,7 +8,7 @@ export default function Footer({ nav }: { nav: { href: string; label: string }[]
       <div className="footer-grid">
         <div>
           <Logo variant="stacked" tone="ivory" className="footer-logo" />
-          <p className="small">Understated leather goods, marked by the Woven DV monogram.</p>
+          <p className="small">A standard of your own. Understated leather goods, marked by the Woven DV monogram.</p>
         </div>
         <div>
           <p className="eyebrow">Shop</p>
@@ -22,6 +22,8 @@ export default function Footer({ nav }: { nav: { href: string; label: string }[]
           <p className="eyebrow">The House</p>
           <ul>
             <li><Link href="/about">Philosophy</Link></li>
+            <li><Link href="/story">Our story</Link></li>
+            <li><Link href="/standard">The Standard</Link></li>
             <li><Link href="/about#monogram">The monogram</Link></li>
             <li><Link href="/about#care">Leather care</Link></li>
           </ul>

@@ -391,3 +391,42 @@ details ul, details p { margin-top: 14px; color: var(--ink); display: grid; gap:
 .consent .btn-dark { background: var(--ivory); color: var(--oxblood); border-color: var(--ivory); }
 .consent .btn-ghost { color: var(--ivory); border-color: var(--gold); }
 .consent .btn-ghost:hover { background: var(--ivory); color: var(--oxblood); }
+
+/* Brand story: manifesto, pillars, standard */
+.manifesto { max-width: 980px; margin: 0 auto; padding: clamp(72px, 11vw, 150px) var(--pad); text-align: center; display: grid; gap: 28px; justify-items: center; }
+.manifesto-text { font-size: clamp(28px, 4vw, 52px); line-height: 1.18; font-weight: 300; text-wrap: balance; }
+.values.four { grid-template-columns: repeat(4, 1fr); gap: 36px; }
+.story-prose { max-width: 720px; }
+.story-prose p:not(.eyebrow):not(.sign) { max-width: 62ch; }
+.pull { font-size: clamp(26px, 3.4vw, 40px); line-height: 1.25; font-style: italic; color: var(--oxblood); border-left: 1px solid var(--gold); padding-left: clamp(18px, 3vw, 36px); margin: 18px 0; text-wrap: balance; }
+.sign { font-size: 26px; color: var(--gold-text); }
+.pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px clamp(28px, 5vw, 72px); }
+.pillar { border-top: 1px solid var(--gold); padding-top: 18px; display: grid; gap: 8px; align-content: start; }
+.pillar h3 { font-size: 28px; font-weight: 400; }
+.numeral { color: var(--gold-text); font-size: 15px; letter-spacing: 0.2em; }
+.standard { background: var(--oxblood-deep); color: var(--ivory); text-align: center; padding: clamp(72px, 10vw, 140px) var(--pad); display: grid; gap: 22px; justify-items: center; }
+.standard h2 { font-size: clamp(32px, 4.4vw, 58px); font-weight: 300; max-width: 20ch; text-wrap: balance; }
+.standard-list { list-style: none; margin: 18px 0 0; padding: 0; width: min(760px, 100%); display: grid; text-align: left; }
+.standard-list li { display: grid; grid-template-columns: 56px 1fr; align-items: baseline; padding: 22px 0; border-top: 1px solid rgba(169, 138, 82, 0.5); font-size: clamp(22px, 2.6vw, 32px); }
+.standard-list li:last-child { border-bottom: 1px solid rgba(169, 138, 82, 0.5); }
+.standard .numeral { color: var(--gold); }
+.tagline { margin-top: 28px; font-size: clamp(22px, 2.4vw, 30px); font-style: italic; color: var(--gold); }
+.standard-block .standard-list li { border-color: var(--line); font-size: 24px; }
+.standard-block .standard-list { width: 100%; }
+@media (max-width: 1100px) { .values.four { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px) { .values.four, .pillars { grid-template-columns: 1fr; } }
+
+/* Slow, quiet reveal on scroll (progressive enhancement; content is visible without it) */
+@supports (animation-timeline: view()) {
+  .reveal { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+}
+
+/* First chapter strip */
+.chapter { max-width: 760px; margin: 0 auto; padding: clamp(64px, 9vw, 120px) var(--pad); text-align: center; display: grid; gap: 20px; justify-items: center; border-top: 1px solid var(--line); }
+.chapter h2 { font-size: clamp(48px, 7vw, 96px); font-weight: 300; line-height: 1; }
+.chapter-copy { color: var(--muted); max-width: 54ch; }
+
+.cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+.standard-page-list { width: 100%; margin-top: 0; }
+.standard-page-list li { border-color: var(--line); }

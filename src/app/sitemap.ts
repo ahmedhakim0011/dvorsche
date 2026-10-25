@@ -18,5 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...collections.map((c) => ({ url: absoluteUrl(collectionPath(c)) })),
     ...products.map((p) => ({ url: absoluteUrl(`/product/${p.slug}`) })),
     { url: absoluteUrl("/about") },
+    { url: absoluteUrl("/story") },
+    { url: absoluteUrl("/standard") },
   ];
 }

@@ -4,7 +4,7 @@ import { Logo } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "The House",
-  description: "The thinking behind D’Vorsche and the Woven DV monogram: leather wallets designed with restraint.",
+  description: "The House of D’Vorsche: our first chapter, the Woven DV monogram and how to care for your leather.",
   alternates: { canonical: "/about" },
 };
 
@@ -14,14 +14,27 @@ export default function About() {
       <header className="page-head">
         <p className="eyebrow">The House of D’Vorsche</p>
         <h1 className="serif">
-          We make fewer things, <em>quietly.</em>
+          Quiet authority. Lasting character. <em>Nothing unnecessary.</em>
         </h1>
       </header>
 
       <p className="lede">
-        D’Vorsche designs leather wallets for people who prefer to be recognised by their taste, not their logo. We begin with wallets, and every piece is held to
-        the same standard: restraint in form, care in detail, and nothing that will look dated next season.
+        D’Vorsche is built around a simple belief: the things you carry should reflect the standards you live by. In a world that constantly demands attention,
+        true distinction doesn’t need to announce itself. It lives in considered details, purposeful design, materials chosen with care, and objects made to
+        become part of your everyday life.
       </p>
+
+      <nav className="cta-row" aria-label="The House">
+        <Link href="/story" className="btn btn-ghost">Our story</Link>
+        <Link href="/standard" className="btn btn-ghost">The D’Vorsche Standard</Link>
+      </nav>
+
+      <section id="first-chapter">
+        <p className="eyebrow">Our First Chapter</p>
+        <h2 className="serif">The wallet.</h2>
+        <p>Every lasting idea starts somewhere. For D’Vorsche, the first chapter begins with an everyday essential: small enough to carry everywhere, personal enough to use every day, and practical enough that every design decision matters.</p>
+        <p>Our ambition is to rethink this familiar object through considered proportions, purposeful organization, distinctive details, and materials selected for their real-world qualities. Not another accessory designed only to look impressive in a photograph. An essential designed to earn its place in your everyday life.</p>
+      </section>
 
       <section id="monogram">
         <h2 className="serif">The monogram</h2>

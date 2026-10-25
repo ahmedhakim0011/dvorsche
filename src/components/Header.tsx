@@ -48,7 +48,7 @@ export default function Header({ nav }: { nav: { href: string; label: string }[]
     <>
       <a href="#main" className="skip">Skip to content</a>
       <div className="announce">
-        Complimentary shipping over <b>$250</b> · Use code <b>WELCOME10</b> for 10% off your first order
+        Complimentary shipping over <b>$250</b> · Gift-wrapped as standard
       </div>
       <header className={`header${scrolled ? " is-scrolled" : ""}`}>
         <div className="header-in">

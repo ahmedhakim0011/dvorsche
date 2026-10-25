@@ -44,10 +44,10 @@ export const CATEGORIES: CategoryInfo[] = [
     slug: "leather",
     handle: "wallets",
     label: "Wallets",
-    blurb: "Understated wallets and card holders, marked by the Woven DV monogram.",
-    metaTitle: "Luxury Leather Wallets & Card Holders",
-    metaDescription: "Shop D’Vorsche leather wallets and card holders: understated design marked by the Woven DV monogram. Complimentary shipping over $250.",
-    intro: "Leather wallets and card holders with quiet proportions and a single signature, the Woven DV monogram. Choose by size and colour; each piece page lists its details.",
+    blurb: "Understated wallets, marked by the Woven DV monogram.",
+    metaTitle: "The Luxury Wallets",
+    metaDescription: "Shop D’Vorsche, the luxury wallets: understated design marked by the Woven DV monogram. Complimentary shipping over $250.",
+    intro: "Luxury wallets with quiet proportions and a single signature, the Woven DV monogram. Choose by size and colour; each piece page lists its details.",
   },
   {
     slug: "fragrance",
@@ -92,9 +92,9 @@ export const products: Product[] = [
     slug: "the-bifold",
     name: "The Bifold",
     category: "leather",
-    tagline: "A wallet with one quiet signature.",
+    tagline: "One quiet signature.",
     description:
-      "A classic bifold in leather, finished with the Woven DV monogram on the front. Placeholder copy: final materials, construction and dimensions to be supplied by D’Vorsche.",
+      "The wallet, considered. A bifold of quiet proportions, marked by a single signature: the Woven DV monogram. Nothing added to impress, nothing missing when it counts.",
     price: 150,
     variants: [
       { label: "Oxblood", price: 150 },
@@ -108,9 +108,9 @@ export const products: Product[] = [
     slug: "the-slim",
     name: "The Slim",
     category: "leather",
-    tagline: "Pared back, for the pocket.",
+    tagline: "Carry less. Choose well.",
     description:
-      "A slimmer wallet for those who carry less. Placeholder copy: final materials, construction and dimensions to be supplied by D’Vorsche.",
+      "For those who carry less, and choose it well. A slimmer wallet where every line has a reason to exist, carried by the Woven DV monogram alone.",
     price: 150,
     variants: [
       { label: "Espresso", price: 150 },
@@ -126,7 +126,7 @@ export const products: Product[] = [
     category: "leather",
     tagline: "The essentials, nothing more.",
     description:
-      "A compact card holder for everyday use. Placeholder copy: final materials, construction and dimensions to be supplied by D’Vorsche.",
+      "The essentials, nothing more. A card holder small enough to carry everywhere and considered enough to use every day, marked once, quietly.",
     price: 95,
     variants: [
       { label: "Black", price: 95 },

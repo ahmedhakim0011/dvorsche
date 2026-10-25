@@ -9,8 +9,8 @@ const sans = Jost({ subsets: ["latin"], weight: ["300", "400", "500"], variable:
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl() || "http://localhost:3000"),
-  title: { default: "D’Vorsche — Luxury Leather Wallets", template: "%s · D’Vorsche" },
-  description: "D’Vorsche designs understated leather wallets and card holders, marked by the Woven DV monogram.",
+  title: { default: "D’Vorsche — The Luxury Wallets", template: "%s · D’Vorsche" },
+  description: "D’Vorsche: quiet authority, lasting character, nothing unnecessary. Luxury wallets marked by the Woven DV monogram.",
   applicationName: SITE_NAME,
   robots: isIndexable() ? { index: true, follow: true } : { index: false, follow: false },
   openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US", images: [DEFAULT_OG_IMAGE] },
